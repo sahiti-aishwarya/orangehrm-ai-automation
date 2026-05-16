@@ -1,0 +1,16 @@
+import { test } from '@playwright/test';
+import { analyzeFailureWithAI } from '../utils/openAIFailureAnalyzer';
+
+test('OpenAI failure analyzer demo', async () => {
+  try {
+    throw new Error('locator.click: Timeout 30000ms exceeded while waiting for Add Employee button');
+  } catch (error) {
+    await analyzeFailureWithAI(
+      'OpenAI failure analyzer demo',
+      'Click Add Employee button',
+      String(error)
+    );
+
+    throw error;
+  }
+});
