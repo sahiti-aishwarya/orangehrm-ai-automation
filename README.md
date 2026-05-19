@@ -54,7 +54,25 @@ The framework automates key HR workflows in OrangeHRM, including login, employee
 
 \- Verify created employee in search results
 
+---
 
+## API Testing
+
+The framework also includes API testing using Playwright's built-in request fixture.
+
+API scenarios covered:
+
+- GET users API validation
+- POST create user API validation
+- Status code validation
+- JSON response validation
+- Response property validation
+
+Run API tests:
+
+```bash
+npx playwright test tests/api.spec.ts
+```
 
 \## AI Features
 
@@ -117,4 +135,7 @@ utils/
 &#x20; aiTestDataGenerator.ts
 
 &#x20; aiFailureAnalyzer.ts
+
+
+
 

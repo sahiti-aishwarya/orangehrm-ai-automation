@@ -56,6 +56,10 @@ Built an AI-assisted UI automation framework using Playwright and TypeScript for
 
 \- Added AI-powered failure analysis utility
 
+\- Added API testing using Playwright request fixture for GET and POST API validation.
+
+\- Validated API status codes, JSON response structure, and response body fields.
+
 
 
 \## Challenges Faced
@@ -123,6 +127,8 @@ Used dynamic employee data and verified the exact employee created during the te
 \- Enhanced test debugging with HTML reports, screenshots, videos, traces, JUnit reports, and AI-powered failure analysis.
 
 \- Integrated GitHub Actions CI/CD to run Playwright tests automatically on code pushes and pull requests.
+
+\- Added API automation tests using Playwright request fixture to validate GET and POST responses, status codes, and JSON response structures.
 
 
 
