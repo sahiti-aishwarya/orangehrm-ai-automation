@@ -2,6 +2,21 @@ import { test } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { DashboardPage } from '../pages/DashboardPage';
 import { logStep } from '../utils/helpers';
+import { analyzeFailureWithAI } from '../utils/openAIFailureAnalyzer';
+
+test.afterEach(async ({}, testInfo) => {
+  if (testInfo.status !== testInfo.expectedStatus) {
+    const analysis = await analyzeFailureWithAI(
+      testInfo.title,
+      'See the error message and call log',
+      testInfo.error?.message ?? 'Unknown error'
+    );
+    await testInfo.attach('ai-failure-analysis', {
+      body: analysis,
+      contentType: 'text/plain',
+    });
+  }
+});
 
 test.describe('OrangeHRM Login Tests', () => {
 

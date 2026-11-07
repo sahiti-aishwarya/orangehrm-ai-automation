@@ -1,4 +1,4 @@
-export function generateAIEmployeeData() {
+export function generateEmployeeData() {
   const profiles = [
     { type: 'valid', first: 'Aarav', last: 'Sharma' },
     { type: 'valid', first: 'Emma', last: 'Smith' },
