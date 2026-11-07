@@ -2,13 +2,12 @@ import { test } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { PIMPage } from '../pages/PIMPage';
 import { logStep } from '../utils/helpers';
-import { generateAIEmployeeData } from '../utils/aiTestDataGenerator';
-
+  import { generateEmployeeData } from '../utils/testDataGenerator';
 test('add employee in PIM module', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const pimPage = new PIMPage(page);
 
-  const employee = generateAIEmployeeData();
+  const employee = generateEmployeeData();
 const firstName = employee.firstName;
 const middleName = employee.middleName;
 const lastName = employee.lastName;
