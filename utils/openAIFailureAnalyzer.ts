@@ -1,5 +1,5 @@
 
-   import { stripVTControlCharacters } from 'util';
+import { stripVTControlCharacters } from 'util';
 import OpenAI from 'openai';
 
 export async function analyzeFailureWithAI(
@@ -7,8 +7,8 @@ export async function analyzeFailureWithAI(
   failedStep: string,
   errorMessage: string
 ): Promise<string> {
-     errorMessage = stripVTControlCharacters(errorMessage);
-   const apiKey = process.env.OPENAI_API_KEY;
+  errorMessage = stripVTControlCharacters(errorMessage);
+  const apiKey = process.env.OPENAI_API_KEY;
 
   if (!apiKey) {
     return [
