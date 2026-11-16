@@ -2,15 +2,15 @@ import { test } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 import { PIMPage } from '../pages/PIMPage';
 import { logStep } from '../utils/helpers';
-  import { generateEmployeeData } from '../utils/testDataGenerator';
+import { generateEmployeeData } from '../utils/testDataGenerator';
 test('add employee in PIM module', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const pimPage = new PIMPage(page);
 
   const employee = generateEmployeeData();
-const firstName = employee.firstName;
-const middleName = employee.middleName;
-const lastName = employee.lastName;
+  const firstName = employee.firstName;
+  const middleName = employee.middleName;
+  const lastName = employee.lastName;
 
 
   logStep('Open login page');
@@ -30,12 +30,12 @@ const lastName = employee.lastName;
 
   logStep('Verify employee added');
   await pimPage.verifyEmployeeAdded(firstName, lastName);
-logStep('Go to Employee List');
-await pimPage.goToEmployeeList();
+  logStep('Go to Employee List');
+  await pimPage.goToEmployeeList();
 
-logStep('Search employee by first name');
-await pimPage.searchEmployee(firstName);
+  logStep('Search employee by first name');
+  await pimPage.searchEmployee(firstName);
 
-logStep('Verify employee appears in search results');
-await pimPage.verifyEmployeeInSearchResults(firstName, lastName);
+  logStep('Verify employee appears in search results');
+  await pimPage.verifyEmployeeInSearchResults(firstName, lastName);
 });
