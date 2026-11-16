@@ -1,141 +1,49 @@
-\# OrangeHRM AI-Assisted Automation Framework
+# OrangeHRM Playwright Automation
 
+End-to-end and API test automation for the [OrangeHRM demo site](https://opensource-demo.orangehrmlive.com), built with Playwright and TypeScript using the Page Object Model.
 
+## What's covered
 
-This project is an AI-assisted UI automation framework built using Playwright and TypeScript for the OrangeHRM application.
+- **Login:** valid login and logout; an invalid login shows an error
+- **PIM (employees):** add an employee with unique test data, check the profile, and find them in search
+- **API:** GET and POST checks against a public practice API (status codes, JSON body, fields)
 
+## Project structure
 
-
-\## Project Overview
-
-
-
-The framework automates key HR workflows in OrangeHRM, including login, employee creation, and employee search. It also includes AI-style test data generation and a failure analysis utility to improve test coverage and debugging efficiency.
-
-
-
-\## Tech Stack
-
-
-
-\- Playwright
-
-\- TypeScript
-
-\- Node.js
-
-\- Page Object Model
-
-\- HTML Reports
-
-\- AI-style test data generation
-
-\- AI failure analysis utility
-
-
-
-\## Automated Test Scenarios
-
-
-
-\### Login Module
-
-\- Valid login and logout
-
-\- Invalid login validation
-
-
-
-\### PIM Module
-
-\- Add employee
-
-\- Search employee
-
-\- Verify created employee in search results
-
----
-
-## API Testing
-
-The framework also includes API testing using Playwright's built-in request fixture.
-
-API scenarios covered:
-
-- GET users API validation
-- POST create user API validation
-- Status code validation
-- JSON response validation
-- Response property validation
-
-Run API tests:
-
-```bash
-npx playwright test tests/api.spec.ts
+```
+pages/                page objects: LoginPage, DashboardPage, PIMPage
+tests/                login.spec.ts, pim.spec.ts, api.spec.ts
+utils/                helpers, test data generator, AI failure analyzer
+playwright.config.ts  timeouts, reporters, screenshot/video/trace on failure
+.github/workflows/    runs the tests on every push and pull request
 ```
 
-\## AI Features
+## Run it
 
+```bash
+npm ci
+npx playwright install chromium
+npx playwright test
+npx playwright show-report
+```
 
+Optional: copy `.env.example` to `.env` and add an OpenAI API key to turn on AI failure analysis.
 
-\### AI-Assisted Test Data Generation
+## Test data
 
-The framework generates dynamic employee test data with different input variations to avoid hardcoded test data and improve coverage.
+Every run creates an employee with a timestamp in the name and its own employee ID, so reruns and parallel runs don't clash on the shared demo site.
 
+## AI failure analysis
 
+When a test fails, an `afterEach` hook sends the test name and error to OpenAI and attaches the suggested cause and fix to the HTML report. Without an API key it attaches a short note instead, and an AI error can never fail a test. Treat its output as a starting point, not an answer.
 
-\### AI Failure Analyzer
+## CI
 
-A utility is included to generate structured failure analysis reports with:
+GitHub Actions runs the suite on every push and pull request to `main`. The runner is pinned to Ubuntu 24.04, because Playwright 1.59 doesn't support Ubuntu 26 yet.
 
-\- Test name
+## Next steps
 
-\- Failed step
-
-\- Error message
-
-\- Likely root cause
-
-\- Suggested debugging steps
-
-
-
-\## Framework Design
-
-
-
-The project follows the Page Object Model design pattern.
-
-
-
-```text
-
-pages/
-
-&#x20; LoginPage.ts
-
-&#x20; DashboardPage.ts
-
-&#x20; PIMPage.ts
-
-
-
-tests/
-
-&#x20; login.spec.ts
-
-&#x20; pim.spec.ts
-
-
-
-utils/
-
-&#x20; helpers.ts
-
-&#x20; aiTestDataGenerator.ts
-
-&#x20; aiFailureAnalyzer.ts
-
-
-
-
+- Read credentials from environment variables and GitHub secrets
+- Replace CSS-class and position-based locators with role- and label-based ones
+- Reuse the login session with `storageState`
+- Add negative API tests, such as a 404 for a missing user
